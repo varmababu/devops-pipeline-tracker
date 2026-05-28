@@ -2,8 +2,9 @@ import axios from "axios";
 
 const API = axios.create({
 
-  // BACKEND URL
-  baseURL: "http://localhost:8080",
+  // CLOUD BACKEND URL
+  baseURL:
+    "https://devops-tracker-xceh.onrender.com",
 
   // JSON HEADERS
   headers: {
