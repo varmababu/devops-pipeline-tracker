@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173",
+                "https://devops-pipeline-tracker.vercel.app"
+        }
+)
 
 public class AuthController {
 
@@ -30,10 +35,18 @@ public class AuthController {
                 "PASSWORD = " + request.getPassword()
         );
 
-        // TEMPORARY FORCE LOGIN
-        String token =
-                jwtUtil.generateToken("admin");
+        // DEMO LOGIN
+        if ("admin".equals(request.getUsername())
+                && "admin123".equals(request.getPassword())) {
 
-        return new AuthResponse(token);
+            String token =
+                    jwtUtil.generateToken("admin");
+
+            return new AuthResponse(token);
+        }
+
+        throw new RuntimeException(
+                "Invalid credentials"
+        );
     }
 }
